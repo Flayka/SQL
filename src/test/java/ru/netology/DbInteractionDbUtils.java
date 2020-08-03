@@ -3,7 +3,6 @@ package ru.netology;
 import com.github.javafaker.Faker;
 import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import ru.netology.mode.User;
 
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DbInteractionDbUtils {
@@ -24,13 +22,13 @@ public class DbInteractionDbUtils {
 
         try (
                 val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                        "jdbc:mysql://192.168.99.100:3306/database", "user1", "qwerty"
                 );
 
         ) {
             // обычная вставка
-            runner.update(conn, dataSQL, faker.name().username(), "pass");
-            runner.update(conn, dataSQL, faker.name().username(), "pass");
+            runner.update(conn, dataSQL, faker.name().username(), "qwerty");
+            runner.update(conn, dataSQL, faker.name().username(), "qwerty");
         }
     }
 
@@ -42,7 +40,7 @@ public class DbInteractionDbUtils {
 
         try (
                 val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                        "jdbc:mysql://192.168.99.100:3306/database", "user1", "qwerty"
                 );
         ) {
             val count = runner.query(conn, countSQL, new ScalarHandler<>());
