@@ -1,6 +1,7 @@
 package ru.netology.web.test;
 
 import lombok.val;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.LoginPage;
@@ -8,6 +9,11 @@ import ru.netology.web.page.LoginPage;
 import static com.codeborne.selenide.Selenide.open;
 
 class LoginTest {
+
+    @AfterAll
+   public static void CleanAllTables() {
+        DataHelper.cleanTables();
+    }
 
     @Test
     void shouldCorrectLogin() {

@@ -2,6 +2,7 @@ package ru.netology.web.data;
 
 import lombok.Value;
 import lombok.val;
+import org.apache.commons.dbutils.QueryRunner;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -59,5 +60,25 @@ public class DataHelper {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public static void cleanTables() {
+        val runner = new QueryRunner();
+        val deleteUsers = "DELETE FROM users";
+        val deleteCards = "DELETE FROM cards";
+        val deleteAuthCodes = "DELETE FROM auth_codes";
+        val deleteCardTrans = "DELETE FROM card_transactions";
+        try (
+                val conn = DriverManager.getConnection(url, user, password);
+        ) {
+            // обычная вставка
+            runner.update(conn, deleteCardTrans);
+            runner.update(conn, deleteAuthCodes);
+            runner.update(conn, deleteCards);
+            runner.update(conn, deleteUsers);
+            System.out.println("Tables are clean");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
